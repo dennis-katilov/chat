@@ -9,6 +9,7 @@
 
 #define DEFAULT_PORT 1601
 #define ERROR_S "SERVER ERROR "
+#define BUFFER_SIZE 1024
 
 using namespace std;
 
@@ -32,12 +33,26 @@ int main(int argc, char const* argv[]){
     server_address.sin_addr.s_addr = htons(INADDR_ANY);
 
     int ret = bind(client, reinterpret_cast<struct sockaddr*>(&server_address),sizeof(server_address));
-     if (ret<0){
+    if (ret<0){
         cout<< ERROR_S << "binding connection";
         return -1;
+    }
+
+     socketlen_t size = sizeof(server_address);
+     cout<< "SERVER: Listening client";
+     listen(client,1);
+     server = accept(client, reinterpret_cast<struct sockaddr*>(&server_address), &size);
+     if (server<0){
+        cout<< ERROR_S << "No accept client";
      }
 
-     int size = sizeof(server_address);
-     cout<< "SERVER: Listening client";
+    char buffer[BUFFER_SIZE];
+    while (server>0){
+        strcpy(buffer, "=> server connected");
+        send(server, buffer, BUFFER_SIZE, 0);
+        cout<< "Connected to client #1" << endl;
+        cout<< "Enter # to end the connection"
+    }
+     
 }
 
