@@ -31,9 +31,13 @@ int main(int argc, char const* argv[]){
     server_address.sin_family = AF_INET;
     server_address.sin_addr.s_addr = htons(INADDR_ANY);
 
-    int ret = bind(client, static_cast<struct sock_addr*>(&server_address),sizeof(server_address));
+    int ret = bind(client, reinterpret_cast<struct sockaddr*>(&server_address),sizeof(server_address));
      if (ret<0){
         cout<< ERROR_S << "binding connection";
+        return -1;
      }
+
+     int size = sizeof(server_address);
+     cout<< "SERVER: Listening client";
 }
 
