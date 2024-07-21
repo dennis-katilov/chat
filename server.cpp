@@ -11,6 +11,8 @@
 #define ERROR_S "SERVER ERROR "
 #define BUFFER_SIZE 1024
 
+bool is_client_connection_close(const char* msg);
+
 using namespace std;
 
 int main(int argc, char const* argv[]){
@@ -51,7 +53,11 @@ int main(int argc, char const* argv[]){
         strcpy(buffer, "=> server connected");
         send(server, buffer, BUFFER_SIZE, 0);
         cout<< "Connected to client #1" << endl;
-        cout<< "Enter # to end the connection"
+        cout<< "Enter # to end the connection";
+        cout<< "Client ";
+        recv(server, buffer, BUFFER_SIZE,0);
+        cout<< buffer << endl;
+
     }
      
 }
