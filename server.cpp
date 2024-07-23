@@ -42,7 +42,7 @@ int main(int argc, char const* argv[]){
         return -1;
     }
 
-     socketlen_t size = sizeof(server_address);
+     socklen_t size = sizeof(server_address);
      cout<< "SERVER: Listening client";
      listen(client,1);
      server = accept(client, reinterpret_cast<struct sockaddr*>(&server_address), &size);
