@@ -6,6 +6,7 @@
 #include <sys/socket.h>
 #include <netdb.h>
 #include <netinet/in.h>
+#include <string.h>
 
 #define DEFAULT_PORT 1601
 #define ERROR_S "SERVER ERROR "
@@ -50,8 +51,9 @@ int main(int argc, char const* argv[]){
      }
 
     char buffer[BUFFER_SIZE];
+    bool isExit=false;
     while (server>0){
-        strcpy(buffer, "=> server connected");
+        strcpy(buffer, "=> server connected\n");
         send(server, buffer, BUFFER_SIZE, 0);
         cout<< "Connected to client #1" << endl;
         cout<< "Enter" << CLIENT_CLOSE_CONNECTION_SYMBOL << "to end the connection";
@@ -59,9 +61,15 @@ int main(int argc, char const* argv[]){
         recv(server, buffer, BUFFER_SIZE,0);
         cout<< buffer << endl;
         if (is_client_connection_close(buffer)){
-
+            isExit=true;
         }
 
+        while (isExit){
+            cout<<"Server ";
+            cin.getline(buffer, BUFFER_SIZE);
+            send(server, buffer, BUFFER_SIZE, 0);
+        }
+        
     }
      
 }
