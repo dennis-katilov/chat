@@ -74,8 +74,13 @@ int main(int argc, char const* argv[]){
             cout<< "Client ";
             recv(server, buffer, BUFFER_SIZE, 0);
             cout<< buffer<<endl;
+            if (is_client_connection_close){
+                break;
+            }
         }
-        
+        cout<<"Bye";
+        isExit=false;
+        exit(1);
     }
      
 }
