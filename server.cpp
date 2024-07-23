@@ -10,6 +10,7 @@
 #define DEFAULT_PORT 1601
 #define ERROR_S "SERVER ERROR "
 #define BUFFER_SIZE 1024
+#define CLIENT_CLOSE_CONNECTION_SYMBOL "#"
 
 bool is_client_connection_close(const char* msg);
 
@@ -53,12 +54,23 @@ int main(int argc, char const* argv[]){
         strcpy(buffer, "=> server connected");
         send(server, buffer, BUFFER_SIZE, 0);
         cout<< "Connected to client #1" << endl;
-        cout<< "Enter # to end the connection";
+        cout<< "Enter" << CLIENT_CLOSE_CONNECTION_SYMBOL << "to end the connection";
         cout<< "Client ";
         recv(server, buffer, BUFFER_SIZE,0);
         cout<< buffer << endl;
+        if (is_client_connection_close(buffer)){
+
+        }
 
     }
      
+}
+
+bool is_client_connection_close(const char* msg){
+    for (int i=0; i<strlen(msg); ++i){
+    
+}
+
+    
 }
 
