@@ -85,14 +85,12 @@ int main(int argc, char const* argv[]){
      return 0;
 }
 
-bool is_client_connection_close(const char* msg){
+ bool is_client_connection_close(const char* msg){
     for (int i=0; i<strlen(msg); ++i){
-        if (msg[i]==CLIENT_CLOSE_CONNECTION_SYMBOL){
+        if (msg[i]=='#'){
             return true;
         }
+    }
     return false;
-}
-
-    
 }
 
