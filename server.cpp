@@ -68,13 +68,13 @@ int main(int argc, char const* argv[]){
             cout<<"Server ";
             cin.getline(buffer, BUFFER_SIZE);
             send(server, buffer, BUFFER_SIZE, 0);
-            if (is_client_connection_close){
+            if (is_client_connection_close(buffer)){
                 break;
             }
             cout<< "Client ";
             recv(server, buffer, BUFFER_SIZE, 0);
             cout<< buffer<<endl;
-            if (is_client_connection_close){
+            if (is_client_connection_close(buffer)){
                 break;
             }
         }
@@ -82,7 +82,7 @@ int main(int argc, char const* argv[]){
         isExit=false;
         exit(1);
     }
-     
+     return 0;
 }
 
 bool is_client_connection_close(const char* msg){
