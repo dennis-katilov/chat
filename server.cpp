@@ -30,7 +30,7 @@ int main(int argc, char const* argv[]){
         exit(0);
     }
 
-    cout<< "SERVER: socket was created";
+    cout<< "SERVER: socket was created\n";
 
     server_address.sin_port = htons(DEFAULT_PORT);
     server_address.sin_family = AF_INET;
