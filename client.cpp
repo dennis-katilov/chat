@@ -13,7 +13,7 @@ using namespace std;
 #define SERVER_IP "127.0.0.1"
 #define DEFAULT_PORT 1601
 #define ERROR_S "SERVER ERROR "
-#define SERVER_CLOSE_CONNECTION_SYMBOL "#"
+#define CLIENT_CLOSE_CONNECTION_SYMBOL "#"
 #define BUFFER_SIZE 1024
 
 bool is_client_connection_close(const char* msg);
@@ -46,14 +46,24 @@ int main(int argc, char const* argv[]){
     char buffer[BUFFER_SIZE];
     recv(client, buffer,BUFFER_SIZE, 0);
     cout<< "Connected establishing" << endl;
-    cout<< "Enter" << SERVER_CLOSE_CONNECTION_SYMBOL << "to end the connection";
+    cout<< "Enter" << CLIENT_CLOSE_CONNECTION_SYMBOL << "to end the connection";
     
     while (true){
         cout<< "Client ";
         cin.getline(buffer, BUFFER_SIZE, 0);
         send(client, buffer, BUFFER_SIZE, 0);
+        if (is_client_connection_close(buffer)){
+                break;
+        }
+        cout<< "SERVER ";
+        recv(client, buffer, BUFFER_SIZE, 0);
+            cout<< buffer<<endl;
+            if (is_client_connection_close(buffer)){
+                break;
+            }
     }
-    
+    close(client);
+    cout<<"Bye";
     
     return 0;
 }
