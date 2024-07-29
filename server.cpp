@@ -64,7 +64,7 @@ int main(int argc, char const* argv[]){
             isExit=true;
         }
 
-        while (isExit){
+        while (!isExit){
             cout<<"Server ";
             cin.getline(buffer, BUFFER_SIZE);
             send(server, buffer, BUFFER_SIZE, 0);

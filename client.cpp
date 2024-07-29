@@ -50,7 +50,7 @@ int main(int argc, char const* argv[]){
     
     while (true){
         cout<< "Client ";
-        cin.getline(buffer, BUFFER_SIZE, 0);
+        cin.getline(buffer, BUFFER_SIZE);
         send(client, buffer, BUFFER_SIZE, 0);
         if (is_client_connection_close(buffer)){
                 break;
