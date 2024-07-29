@@ -30,7 +30,7 @@ int main(int argc, char const* argv[]){
         exit(0);
     }
 
-    cout<< "SERVER: socket was created\n";
+    cout<< "=> SERVER: socket was created\n";
 
     server_address.sin_port = htons(DEFAULT_PORT);
     server_address.sin_family = AF_INET;
@@ -43,7 +43,7 @@ int main(int argc, char const* argv[]){
     }
 
      socklen_t size = sizeof(server_address);
-     cout<< "SERVER: Listening client\n";
+     cout<< "=> SERVER: Listening client\n";
      listen(client,1);
      server = accept(client, reinterpret_cast<struct sockaddr*>(&server_address), &size);
      if (server<0){
@@ -53,11 +53,11 @@ int main(int argc, char const* argv[]){
     char buffer[BUFFER_SIZE];
     bool isExit=false;
     while (server>0){
-        strcpy(buffer, "=> server connected\n");
+        strcpy(buffer, "=> SERVER: server connected\n");
         send(server, buffer, BUFFER_SIZE, 0);
-        cout<< "Connected to client #1\n" << endl;
-        cout<< "Enter " << CLIENT_CLOSE_CONNECTION_SYMBOL << " to end the connection\n";
-        cout<< "Client ";
+        cout<< "=> SERVER: Connected to client #1\n";
+        cout<< "=> SERVER: Enter " << CLIENT_CLOSE_CONNECTION_SYMBOL << " to end the connection\n";
+        cout<< "Client<- ";
         recv(server, buffer, BUFFER_SIZE,0);
         cout<< buffer << endl;
         if (is_client_connection_close(buffer)){
@@ -65,13 +65,13 @@ int main(int argc, char const* argv[]){
         }
 
         while (!isExit){
-            cout<<"Server ";
+            cout<<"Server-> ";
             cin.getline(buffer, BUFFER_SIZE);
             send(server, buffer, BUFFER_SIZE, 0);
             if (is_client_connection_close(buffer)){
                 break;
             }
-            cout<< "Client ";
+            cout<< "Client<- ";
             recv(server, buffer, BUFFER_SIZE, 0);
             cout<< buffer<<endl;
             if (is_client_connection_close(buffer)){

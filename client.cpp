@@ -34,28 +34,28 @@ int main(int argc, char const* argv[]){
     server_address.sin_family = AF_INET;
     inet_pton(AF_INET, SERVER_IP, &server_address.sin_addr);
 
-    cout<< "=> Client socked was created\n";
+    cout<< "=> CLIENT: socked was created\n";
 
     int ret = connect(client, reinterpret_cast<const struct sockaddr*>(&server_address),sizeof(server_address));
     if (ret==0){
-        cout<<"connection to server\n"
+        cout<<"=> CLIENT: Connection to server "
             << inet_ntoa(server_address.sin_addr)
-            << "port " << DEFAULT_PORT << "\n";      
+            << " on port " << DEFAULT_PORT << "\n";      
     }
 
     char buffer[BUFFER_SIZE];
     recv(client, buffer,BUFFER_SIZE, 0);
-    cout<< "Connected establishing\n" << endl;
-    cout<< "Enter " << CLIENT_CLOSE_CONNECTION_SYMBOL << " to end the connection";
+    cout<< "=> CLIENT: Connected establishing\n";
+    cout<< "=> CLIENT: Enter " << CLIENT_CLOSE_CONNECTION_SYMBOL << " to end the connection\n";
     
     while (true){
-        cout<< "Client ";
+        cout<< "CLIENT-> ";
         cin.getline(buffer, BUFFER_SIZE);
         send(client, buffer, BUFFER_SIZE, 0);
         if (is_client_connection_close(buffer)){
                 break;
         }
-        cout<< "SERVER ";
+        cout<< "SERVER<- ";
         recv(client, buffer, BUFFER_SIZE, 0);
             cout<< buffer<<endl;
             if (is_client_connection_close(buffer)){
