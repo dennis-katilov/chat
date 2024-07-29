@@ -26,7 +26,7 @@ int main(int argc, char const* argv[]){
     client = socket(AF_INET, SOCK_STREAM, 0);
 
     if (client<0){
-        cout<< ERROR_S << ": establishing socket error";
+        cout<< ERROR_S << ": establishing socket error\n";
         exit(0);
     }
 
@@ -34,19 +34,19 @@ int main(int argc, char const* argv[]){
     server_address.sin_family = AF_INET;
     inet_pton(AF_INET, SERVER_IP, &server_address.sin_addr);
 
-    cout<< "=> Client socked was created";
+    cout<< "=> Client socked was created\n";
 
     int ret = connect(client, reinterpret_cast<const struct sockaddr*>(&server_address),sizeof(server_address));
     if (ret==0){
-        cout<<"connection to server"
+        cout<<"connection to server\n"
             << inet_ntoa(server_address.sin_addr)
             << "port " << DEFAULT_PORT << "\n";      
     }
 
     char buffer[BUFFER_SIZE];
     recv(client, buffer,BUFFER_SIZE, 0);
-    cout<< "Connected establishing" << endl;
-    cout<< "Enter" << CLIENT_CLOSE_CONNECTION_SYMBOL << "to end the connection";
+    cout<< "Connected establishing\n" << endl;
+    cout<< "Enter " << CLIENT_CLOSE_CONNECTION_SYMBOL << " to end the connection";
     
     while (true){
         cout<< "Client ";
@@ -63,7 +63,7 @@ int main(int argc, char const* argv[]){
             }
     }
     close(client);
-    cout<<"Bye";
+    cout<<"Bye\n";
     
     return 0;
 }

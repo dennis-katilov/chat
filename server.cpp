@@ -26,7 +26,7 @@ int main(int argc, char const* argv[]){
     client = socket(AF_INET, SOCK_STREAM, 0);
 
     if (client<0){
-        cout<< ERROR_S << ": establishing socket error";
+        cout<< ERROR_S << ": establishing socket error\n";
         exit(0);
     }
 
@@ -38,16 +38,16 @@ int main(int argc, char const* argv[]){
 
     int ret = bind(client, reinterpret_cast<struct sockaddr*>(&server_address),sizeof(server_address));
     if (ret<0){
-        cout<< ERROR_S << "binding connection";
+        cout<< ERROR_S << "binding connection\n";
         return -1;
     }
 
      socklen_t size = sizeof(server_address);
-     cout<< "SERVER: Listening client";
+     cout<< "SERVER: Listening client\n";
      listen(client,1);
      server = accept(client, reinterpret_cast<struct sockaddr*>(&server_address), &size);
      if (server<0){
-        cout<< ERROR_S << "No accept client";
+        cout<< ERROR_S << "No accept client\n";
      }
 
     char buffer[BUFFER_SIZE];
@@ -55,8 +55,8 @@ int main(int argc, char const* argv[]){
     while (server>0){
         strcpy(buffer, "=> server connected\n");
         send(server, buffer, BUFFER_SIZE, 0);
-        cout<< "Connected to client #1" << endl;
-        cout<< "Enter" << CLIENT_CLOSE_CONNECTION_SYMBOL << "to end the connection";
+        cout<< "Connected to client #1\n" << endl;
+        cout<< "Enter " << CLIENT_CLOSE_CONNECTION_SYMBOL << " to end the connection\n";
         cout<< "Client ";
         recv(server, buffer, BUFFER_SIZE,0);
         cout<< buffer << endl;
@@ -78,7 +78,7 @@ int main(int argc, char const* argv[]){
                 break;
             }
         }
-        cout<<"Bye";
+        cout<<"Bye\n";
         isExit=false;
         exit(1);
     }
