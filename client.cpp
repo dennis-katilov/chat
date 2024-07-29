@@ -14,6 +14,7 @@ using namespace std;
 #define DEFAULT_PORT 1601
 #define ERROR_S "SERVER ERROR "
 #define SERVER_CLOSE_CONNECTION_SYMBOL "#"
+#define BUFFER_SIZE 1024
 
 bool is_client_connection_close(const char* msg);
 
@@ -39,10 +40,21 @@ int main(int argc, char const* argv[]){
     if (ret==0){
         cout<<"connection to server"
             << inet_ntoa(server_address.sin_addr)
-            << "port " << DEFAULT_PORT << "\n";
-        return -1;
+            << "port " << DEFAULT_PORT << "\n";      
     }
 
+    char buffer[BUFFER_SIZE];
+    recv(client, buffer,BUFFER_SIZE, 0);
+    cout<< "Connected establishing" << endl;
+    cout<< "Enter" << SERVER_CLOSE_CONNECTION_SYMBOL << "to end the connection";
+    
+    while (true){
+        cout<< "Client ";
+        cin.getline(buffer, BUFFER_SIZE, 0);
+        send(client, buffer, BUFFER_SIZE, 0);
+    }
+    
+    
     return 0;
 }
 
